@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+
+        <style>
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                font-family: "Lato", sans-serif;
+                background-color: #f3f6f9;
+                padding-top: 15%;
+                text-align: center;
+            }
+
+            .small {
+                margin: auto;
+                font-size: 16pt;
+                color: #888;
+            }
+
+            .timezone {
+                margin: auto;
+                font-size: 40pt;
+                color: #444;
+            }
+
+            .copyhint {
+                margin: auto;
+                font-size: 14pt;
+                color: #888;
+                font-style: oblique;
+            }
+
+            .footer {
+                margin-top: 2rem;
+                font-size: 10pt;
+                color: #aaa !important; /* lol */
+            }
+
+            a {
+                color: inherit;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="small">your time zone code is:</div>
+        <div class="timezone" id="timezone"></div>
+        <div class="copyhint" id="copyhint">(click to copy)</div>
+        <div class="footer"><a href="https://github.com/xSke/tz">src</a></div>
+
+        <script>
+            // https://stackoverflow.com/a/34602679
+            var elem = document.getElementById("timezone")
+            if (window.Intl && window.Intl.DateTimeFormat && window.Intl.DateTimeFormat() && window.Intl.DateTimeFormat().resolvedOptions && window.Intl.DateTimeFormat().resolvedOptions() && window.Intl.DateTimeFormat().resolvedOptions().timeZone) {
+                elem.innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+                elem.addEventListener("click", function() {
+                    window.getSelection().selectAllChildren(elem);
+                    document.execCommand("copy");
+
+                    document.getElementById("copyhint").innerText = "copied!";
+                });
+            } else {
+                elem.innerHTML = "<em>See <a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\">The List</a></em>";
+            }
+        </script>
+    </body>
+</html>
