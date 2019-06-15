@@ -46,25 +46,24 @@
     </head>
     <body>
         <div class="small">your time zone code is:</div>
-        <div class="timezone" id="timezone"></div>
+        <div class="timezone" id="timezone"><em>working...</em></div>
         <div class="copyhint" id="copyhint">(click to copy)</div>
         <div class="footer"><a href="https://github.com/xSke/tz">src</a></div>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.25/moment-timezone-with-data.min.js"></script>
+
         <script>
             // https://stackoverflow.com/a/34602679
-            var elem = document.getElementById("timezone")
-            if (window.Intl && window.Intl.DateTimeFormat && window.Intl.DateTimeFormat() && window.Intl.DateTimeFormat().resolvedOptions && window.Intl.DateTimeFormat().resolvedOptions() && window.Intl.DateTimeFormat().resolvedOptions().timeZone) {
-                elem.innerText = Intl.DateTimeFormat().resolvedOptions().timeZone;
+            var elem = document.getElementById("timezone");
+            elem.innerText = moment.tz.guess(true);
 
-                elem.addEventListener("click", function() {
-                    window.getSelection().selectAllChildren(elem);
-                    document.execCommand("copy");
+            elem.addEventListener("click", function() {
+                window.getSelection().selectAllChildren(elem);
+                document.execCommand("copy");
 
-                    document.getElementById("copyhint").innerText = "copied!";
-                });
-            } else {
-                elem.innerHTML = "<em>See <a href=\"https://en.wikipedia.org/wiki/List_of_tz_database_time_zones\">The List</a></em>";
-            }
+                document.getElementById("copyhint").innerText = "copied!";
+            });
         </script>
     </body>
 </html>
